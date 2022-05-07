@@ -1,5 +1,7 @@
 import { TypographyLink } from "@components/data-display/TypographyLink";
-import { Box, Container, Toolbar } from "@mui/material";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import NightlightRoundOutlinedIcon from "@mui/icons-material/NightlightRoundOutlined";
+import { Box, Container, IconButton, Toolbar } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { HeaderAppBar } from "@styles/components/Layout/Header.style";
 import { AppContext } from "contexts/AppContext";
@@ -11,7 +13,7 @@ const Header = () => {
   const { dark, handleSetDark } = useContext(AppContext);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <HeaderAppBar position="sticky">
         <Toolbar component={Container}>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -20,6 +22,12 @@ const Header = () => {
           <TypographyLink href="/users/home" text="Home" />
           <TypographyLink href="/" text="Login" />
           <TypographyLink href="/users/create_user" text="Cadastro" />
+          <IconButton
+            onClick={handleSetDark}
+            style={{ border: "1px solid #ccc", marginLeft: "0 1rem" }}
+          >
+            {dark ? <LightModeOutlinedIcon /> : <NightlightRoundOutlinedIcon />}
+          </IconButton>
         </Toolbar>
       </HeaderAppBar>
     </Box>
