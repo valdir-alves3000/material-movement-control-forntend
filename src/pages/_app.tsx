@@ -1,11 +1,10 @@
 import "@styles/globals.css";
-import { AppProvider } from "contexts/AppContext";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AppProvider>
+    <>
       <Head>
         <meta
           name="viewport"
@@ -18,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <Component {...pageProps} />
-    </AppProvider>
+    </>
   );
 }
 
