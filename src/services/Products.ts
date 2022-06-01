@@ -1,4 +1,5 @@
-import api from "./api";
+import { IProductRequest } from "data/types/IApp";
+import { apiApp } from "./api";
 
 interface IProductService {
   token: string;
@@ -7,7 +8,7 @@ interface IProductService {
 }
 
 const getProducts = async (token: string) => {
-  const { data } = await api.get(`/products?id`, {
+  const { data } = await apiApp.get(`/products?id`, {
     headers: {
       authorization: "Bearer " + token,
     },
@@ -21,14 +22,16 @@ const updateProduct = async ({
   idProduct,
   storageLocation,
 }: IProductService) => {
-  const data = {};
   try {
-    const response = await api.put(`/products/${idProduct}`, storageLocation, {
-      headers: {
-        authorization: "Bearer " + token,
-      },
-    });
-    alert(response.data);
+    const response = await apiApp.put(
+      `/products/${idProduct}`,
+      storageLocation,
+      {
+        headers: {
+          authorization: "Bearer " + token,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     return error;
@@ -37,10 +40,41 @@ const updateProduct = async ({
 
 const productExpirationDate = async (idProduct: string) => {
   try {
-    const { data } = await api.get(`products/expiration_date/${idProduct}`);
+    const { data } = await apiApp.get(`products/expiration_date/${idProduct}`);
 
     return data;
   } catch (error) {}
 };
 
-export { getProducts, updateProduct, productExpirationDate };
+const createProduct = async ({
+  description,
+  expiration_date,
+  expiry_date_after_opening,
+  material,
+  quantity,
+  token,
+}: IProductRequest) => {
+  try {
+    const { data } = await apiApp.post(
+      "/product",
+      {
+        description,
+        expiration_date,
+        expiry_date_after_opening,
+        material,
+        quantity,
+      },
+      {
+        headers: {
+          authorization: "Bearer " + token,
+        },
+      }
+    );
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export { getProducts, updateProduct, productExpirationDate, createProduct };

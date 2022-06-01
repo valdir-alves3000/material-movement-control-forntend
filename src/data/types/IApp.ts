@@ -74,7 +74,8 @@ export interface IUserResponse {
   users: IUser[];
 }
 
-export interface IproductRequest {
+export interface IProductRequest {
+  token: string;
   material: string;
   storage_location?: string;
   status?: string;
@@ -103,4 +104,54 @@ export interface IProductResponse {
 
 export interface IProductListResponse {
   products: IProductResponse[];
+}
+
+export interface IExpirationDate {
+  id: string | null;
+  description: string | null;
+  material: string | null;
+  expiration_date: string | null;
+  expiry_date_after_opening: string | null;
+}
+
+export interface IStorageProductContext {
+  idProduct: string;
+  disabled: boolean;
+  loading: boolean;
+  storageLocation: string;
+
+  setStorageLocation: Dispatch<SetStateAction<string>>;
+  setIdProduct: Dispatch<SetStateAction<string>>;
+  confirmPosition: () => void;
+}
+
+export interface IStorageProductProvider {
+  children: ReactNode;
+}
+
+export interface IAppButton {
+  text: string;
+  onClick: () => void;
+  disabled: boolean;
+  loading: boolean;
+}
+
+export interface IReceiveProductInformation {
+  phone: number;
+  expirationDateMessage: string;
+  expiryDateAfterOpeningMessage: number;
+  open_product: boolean;
+}
+
+export interface ICreateMessageTwilioContext {
+  receiveProductInformation: ({
+    expirationDateMessage,
+    expiryDateAfterOpeningMessage,
+    phone,
+    open_product,
+  }: IReceiveProductInformation) => void;
+}
+
+export interface ICreateMessageTwilioProvider {
+  children: ReactNode;
 }

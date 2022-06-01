@@ -1,4 +1,4 @@
-import { MarketSupply } from "@components/MarketSupply";
+import { MarketSupply } from "@components/MarketSupply/MarketSupply";
 
 const market_supply = () => {
   return <MarketSupply />;

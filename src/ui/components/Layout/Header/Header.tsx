@@ -19,7 +19,7 @@ const Header = () => {
       <HeaderAppBar position="sticky">
         <Toolbar component={Container}>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            De Olho na Validade
+            Guardiões da Saúde
           </Typography>
           <TypographyLink href="/users/home" text="Home" />
           <TypographyLink href="/" text="Login" />

@@ -1,10 +1,10 @@
 import { IUserService } from "data/types/IApp";
-import api from "services/api";
+import { apiApp } from "services/api";
 import Swal from "sweetalert2";
 
 const getUsers = async (token: string) => {
   try {
-    const { data } = await api.get("/users", {
+    const { data } = await apiApp.get("/users", {
       headers: {
         authorization: "Bearer " + token,
       },
@@ -17,7 +17,7 @@ const getUsers = async (token: string) => {
 };
 
 const checkAdmin = async (token: string) => {
-  const { data } = await api.get("/admin", {
+  const { data } = await apiApp.get("/admin", {
     headers: {
       authorization: "Bearer " + token,
     },
@@ -37,14 +37,14 @@ const createUser = async ({ token, name, password, admin }: IUserService) => {
   };
 
   try {
-    const response = await api.post("/users", data, {
+    const response = await apiApp.post("/users", data, {
       headers: {
         authorization: "Bearer " + token,
       },
     });
     return response.data;
   } catch (error) {
-    return "error";
+    return error;
   }
 };
 
@@ -59,7 +59,7 @@ const deleteUser = async (token: string, id: string) => {
     confirmButtonText: "Excluir",
   }).then(async (result) => {
     if (result.isConfirmed) {
-      await api.delete(`/users/${id}`, {
+      await apiApp.delete(`/users/${id}`, {
         headers: {
           authorization: "Bearer " + token,
         },

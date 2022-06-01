@@ -1,5 +1,5 @@
 import { CircularProgress, Typography } from "@mui/material";
-import { IAppButton } from "data/types/IAppContext";
+import { IAppButton } from "data/types/IApp";
 import { AppButtonStyled } from "./AppButton.style";
 
 const AppButton = ({ text, onClick, disabled, loading }: IAppButton) => {

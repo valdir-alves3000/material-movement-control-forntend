@@ -20,15 +20,18 @@
     "js-cookie": "^3.0.1",
     "material-ui-popup-state": "^2.0.0",
     "next": "12.1.5",
+    "nookies": "^2.5.2",
     "qr-scanner": "^1.4.1",
     "qrcode": "^1.5.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-input-mask": "^2.0.4",
     "react-qr-reader": "^3.0.0-beta-1",
-    "sweetalert2": "^11.4.9"
+    "sweetalert2": "^11.4.9",
+    "twilio": "^3.77.1"
   },
   "devDependencies": {
+    "@types/cookie": "^0.5.1",
     "@types/js-cookie": "^3.0.1",
     "@types/node": "17.0.23",
     "@types/qrcode": "^1.4.2",

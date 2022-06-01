@@ -1,20 +1,21 @@
 import { AppButton } from "@components/AppButton/AppButton";
 import { PageTitle } from "@components/data-display/PageTitle/PageTitle";
 import { TextField } from "@mui/material";
-import { SignInContext } from "contexts/SignInContext";
+import { AuthContext } from "contexts/AuthContext";
 import { useContext } from "react";
 import { SignInAvatar, SignInContainer, SignInGrid } from "./SignIn.style";
 
 const SignIn = () => {
   const {
-    loading,
-    handleSignIn,
     disabled,
+    handleSignIn,
+    isAuthenticated,
+    loading,
     name,
     password,
     setName,
     setPassword,
-  } = useContext(SignInContext);
+  } = useContext(AuthContext);
 
   return (
     <SignInContainer container>
