@@ -1,4 +1,4 @@
-import { ButtonApp } from "@components/ButtonApp";
+import { AppButton } from "@components/AppButton/AppButton";
 import { Layout } from "@components/Layout";
 import { Box, TextField } from "@mui/material";
 import { useRouter } from "next/router";
@@ -33,7 +33,12 @@ const UpdatePosition = () => {
             fullWidth
             style={{ marginLeft: "5px" }}
           />
-          <ButtonApp text="Atualizar" onClick={confirm_position} />
+          <AppButton
+            disabled={false}
+            loading={false}
+            text="Atualizar"
+            onClick={confirm_position}
+          />
         </Box>
       </StoreProdutStyled>
     </Layout>

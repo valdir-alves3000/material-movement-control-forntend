@@ -11,22 +11,19 @@
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
-    "@material-ui/core": "^4.12.4",
     "@mui/icons-material": "^5.6.1",
     "@mui/material": "^5.6.1",
+    "@prisma/client": "^3.14.0",
     "animate.css": "^4.1.1",
     "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "js-cookie": "^3.0.1",
-    "material-ui-popup-state": "^2.0.0",
     "next": "12.1.5",
     "nookies": "^2.5.2",
-    "qr-scanner": "^1.4.1",
     "qrcode": "^1.5.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-input-mask": "^2.0.4",
-    "react-qr-reader": "^3.0.0-beta-1",
     "sweetalert2": "^11.4.9",
     "twilio": "^3.77.1"
   },
@@ -40,6 +37,10 @@
     "@types/styled-components": "^5.1.25",
     "eslint": "8.13.0",
     "eslint-config-next": "12.1.5",
+    "prisma": "^3.14.0",
     "typescript": "4.6.3"
+  },
+  "prisma": {
+    "schema": "prisma/schema.prisma"
   }
 }

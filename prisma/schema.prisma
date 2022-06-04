@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL_ELEPHANTSQL")
+}
+
+model users {
+  id                                       String     @id(map: "PK_a3ffb1c0c8416b9fc6f907b7433") @default(uuid()) @db.Uuid
+  name                                     String     @db.VarChar
+  password                                 String     @db.VarChar
+  admin                                    Boolean    @default(false)
+  created_at                               DateTime   @default(now()) @db.Timestamp(6)
+  updated_at                               DateTime   @default(now()) @db.Timestamp(6)
+  products_products_created_by_userTousers products[] @relation("products_created_by_userTousers")
+  products_products_updated_by_userTousers products[] @relation("products_updated_by_userTousers")
+}
+
+model migrations {
+  id        Int    @id(map: "PK_8c82d7f526340ab734260ea46be") @default(autoincrement())
+  timestamp BigInt
+  name      String @db.VarChar
+}
+
+model products {
+  id                                    String           @id(map: "PK_0806c755e0aca124e67c0cf6d7d") @db.Uuid
+  storage_location                      String           @db.VarChar
+  status                                String           @db.VarChar
+  material                              String           @db.VarChar
+  description                           String
+  quantity                              String           @db.VarChar
+  locked                                Boolean
+  expiration_date                       DateTime         @db.Timestamp(6)
+  expiry_date_after_opening             Int
+  created_by_user                       String           @db.Uuid
+  updated_by_user                       String           @db.Uuid
+  created_at                            DateTime         @default(now()) @db.Timestamp(6)
+  updated_at                            DateTime         @default(now()) @db.Timestamp(6)
+  users_products_created_by_userTousers users            @relation("products_created_by_userTousers", fields: [created_by_user], references: [id], onDelete: SetNull, onUpdate: SetNull, map: "FKCreatedByUserProduct")
+  users_products_updated_by_userTousers users            @relation("products_updated_by_userTousers", fields: [updated_by_user], references: [id], onDelete: SetNull, onUpdate: SetNull, map: "FKUpdatedByUserProduct")
+  storage_points                        storage_points[]
+  supply_points                         supply_points[]
+}
+
+model storage_points {
+  id               String    @id(map: "PK_b857ba99de71a8f434f9915c577") @db.Uuid
+  storage_point    String    @db.VarChar
+  locked           Boolean
+  lock_description String?   @db.VarChar
+  product_id       String?   @db.Uuid
+  created_at       DateTime  @default(now()) @db.Timestamp(6)
+  updated_at       DateTime  @default(now()) @db.Timestamp(6)
+  products         products? @relation(fields: [product_id], references: [id], onUpdate: SetNull, map: "FKStoragePointProduct")
+}
+
+model supply_points {
+  id           String    @id(map: "PK_8350fa1cbad5aad4e7b3a035f6d") @db.Uuid
+  supply_point String    @db.VarChar
+  product_id   String?   @db.Uuid
+  created_at   DateTime  @default(now()) @db.Timestamp(6)
+  updated_at   DateTime  @default(now()) @db.Timestamp(6)
+  products     products? @relation(fields: [product_id], references: [id], onUpdate: SetNull, map: "FKSupplyPointProduct")
+}

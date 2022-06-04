@@ -1,7 +1,6 @@
 import { ErrorPage } from "@components/ErrorPage/ErrorPage";
 import { Layout } from "@components/Layout";
 import { ListAllProduct } from "@components/Products/ListAllProduct/ListAllProduct";
-import { StorageProductProvider } from "contexts/StorageProductContext";
 import { IProductListResponse } from "data/types/IApp";
 import { GetServerSideProps } from "next";
 import { getProducts } from "services/Products";
@@ -13,9 +12,7 @@ const list_all_product = ({ products }: IProductListResponse) => {
 
   return (
     <Layout>
-      <StorageProductProvider>
-        <ListAllProduct products={products} />
-      </StorageProductProvider>
+      <ListAllProduct products={products} />
     </Layout>
   );
 };

@@ -5,11 +5,8 @@ import CompareArrowsOutlinedIcon from "@mui/icons-material/CompareArrowsOutlined
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { Grid } from "@mui/material";
-import { useRouter } from "next/router";
 
 const HomeAdmin = () => {
-  const router = useRouter();
-
   return (
     <Grid container marginTop={"20px"} spacing={3} justifyContent="center">
       <AdminBox item lg={3} md={6}>
@@ -46,7 +43,7 @@ const HomeAdmin = () => {
         <AppCard
           title="Produtos"
           icon={<CategoryIcon />}
-          hrefCreate="/products/create_user"
+          hrefCreate="/products/create"
           hrefDelete="/products/delete_product"
           hrefList="/products/list_all_product"
           hrefUpdate="/products/update_product"

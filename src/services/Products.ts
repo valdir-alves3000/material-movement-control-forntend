@@ -1,4 +1,5 @@
 import { IProductRequest } from "data/types/IApp";
+import Swal from "sweetalert2";
 import { apiApp } from "./api";
 
 interface IProductService {
@@ -54,26 +55,35 @@ const createProduct = async ({
   quantity,
   token,
 }: IProductRequest) => {
-  try {
-    const { data } = await apiApp.post(
-      "/product",
-      {
-        description,
-        expiration_date,
-        expiry_date_after_opening,
-        material,
-        quantity,
-      },
-      {
-        headers: {
-          authorization: "Bearer " + token,
-        },
-      }
-    );
+  const data = {
+    description,
+    expiration_date,
+    expiry_date_after_opening,
+    material,
+    quantity,
+  };
 
-    return data;
+  try {
+    const response = await apiApp.post("/products", data, {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    });
+
+    alert(JSON.stringify(response.data));
+
+    Swal.fire({
+      icon: "success",
+      title: "Produto cadastrado",
+      titleText: "Produto cadastrado com sucesso",
+    });
   } catch (error) {
-    return error;
+    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: "Falha no cadatro",
+      titleText: "Produto não cadastrado",
+    });
   }
 };
 

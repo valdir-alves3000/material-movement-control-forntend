@@ -1,4 +1,4 @@
-import { IPageTitle } from "data/types/IAppContext";
+import { IPageTitle } from "data/types/IApp";
 import { PageTitleStyled } from "./PageTitle.style";
 
 const PageTitle = ({ title }: IPageTitle) => {

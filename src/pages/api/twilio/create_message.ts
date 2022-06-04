@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import type { NextApiRequest, NextApiResponse } from "next";
-const NEXT_PUBLIC_TWILIO_ID = process.env.TWILIO_ID;
-const NEXT_PUBLIC_TWILIO_AUTHTOKEN = process.env.TWILIO_AUTHTOKEN;
+const NEXT_PUBLIC_TWILIO_ID = process.env.NEXT_PUBLIC_TWILIO_ID;
+const NEXT_PUBLIC_TWILIO_AUTHTOKEN = process.env.NEXT_PUBLIC_TWILIO_AUTHTOKEN;
 
 const client = require("twilio")(
   NEXT_PUBLIC_TWILIO_ID,

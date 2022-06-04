@@ -10,24 +10,32 @@ const HomeUser = () => {
       <img src="/assets/forklift.png" alt="" />
       <HomeUserBox>
         <AppButton
+          disabled={false}
+          loading={false}
           text="Armazenamento"
           onClick={() => {
             router.push("/products/store_product");
           }}
         />
         <AppButton
+          disabled={false}
+          loading={false}
           text="Abastecimento"
           onClick={() => {
             router.push("/products/market_supply");
           }}
         />
         <AppButton
+          disabled={false}
+          loading={false}
           text="Consultar produto"
           onClick={() => {
             router.push("/products/consult_product");
           }}
         />
         <AppButton
+          disabled={false}
+          loading={false}
           text="Atualizar posição"
           onClick={() => {
             router.push("/products/update_position");

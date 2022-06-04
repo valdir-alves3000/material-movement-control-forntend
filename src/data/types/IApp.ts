@@ -1,5 +1,14 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 
+export interface IPageTitle {
+  title: string;
+}
+
+export interface ITypographyLink {
+  text: string;
+  href: string;
+}
+
 export interface ILayout {
   children: ReactNode;
 }
@@ -154,4 +163,13 @@ export interface ICreateMessageTwilioContext {
 
 export interface ICreateMessageTwilioProvider {
   children: ReactNode;
+}
+
+export interface IAppCard {
+  title: string;
+  icon: ReactNode;
+  hrefCreate: string;
+  hrefDelete: string;
+  hrefList: string;
+  hrefUpdate: string;
 }

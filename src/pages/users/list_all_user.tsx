@@ -17,8 +17,8 @@ const list_all_user = ({ users }: IUserResponse) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const token = ctx.req.cookies.token as string;
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const token = req.cookies.token as string;
   let users = [];
 
   try {

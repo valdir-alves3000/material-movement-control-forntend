@@ -1,4 +1,5 @@
 import { AppButton } from "@components/AppButton/AppButton";
+import { PageTitle } from "@components/data-display/PageTitle/PageTitle";
 import {
   SignInContainer,
   SignInGrid,
@@ -7,48 +8,42 @@ import { TextField } from "@mui/material";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { createProduct } from "services/Products";
-import Swal from "sweetalert2";
 
 const CreateProduct: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const [material, setMaterial] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
   const [expiryDateAfterOpening, setExpiryDateAfterOpening] = useState("");
 
+  const disabled =
+    material.length < 4 ||
+    description.length < 4 ||
+    quantity.length < 1 ||
+    expirationDate.length < 10 ||
+    expiryDateAfterOpening.length < 1;
+
   const handleCreateProduct = async () => {
     const token = Cookies.get("token") as string;
+    setLoading(true);
+    await createProduct({
+      description,
+      expiration_date: expirationDate,
+      expiry_date_after_opening: Number(expiryDateAfterOpening),
+      material,
+      quantity: Number(quantity),
+      token,
+    });
 
-    try {
-      const product = await createProduct({
-        description,
-        expiration_date: expirationDate,
-        expiry_date_after_opening: Number(expiryDateAfterOpening),
-        material,
-        quantity: Number(quantity),
-        token,
-      });
-
-      alert(product);
-
-      Swal.fire({
-        icon: "success",
-        title: "Produto cadastrado",
-        titleText: "Produto cadastrado com sucesso",
-      });
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Falha no cadatro",
-        titleText: "Produto não cadastrado",
-      });
-    }
+    setLoading(false);
   };
 
   return (
     <SignInContainer container>
-      <img src="/assets/list.png" alt="" />
+      <img src="/assets/product.jpg" alt="" />
       <SignInGrid item md={6}>
+        <PageTitle title={"Cadastrar Produto"} />
         <TextField
           fullWidth
           label={"Produto"}
@@ -60,6 +55,7 @@ const CreateProduct: React.FC = () => {
         <TextField
           fullWidth
           label={"Descrição"}
+          type={"text"}
           required
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -90,10 +86,10 @@ const CreateProduct: React.FC = () => {
         />
 
         <AppButton
-          disabled={false}
-          loading={false}
+          disabled={disabled}
+          loading={loading}
           onClick={handleCreateProduct}
-          text={"Cadastar"}
+          text={"Cadastrar"}
         />
       </SignInGrid>
     </SignInContainer>
