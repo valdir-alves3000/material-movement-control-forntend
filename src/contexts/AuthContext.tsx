@@ -1,20 +1,16 @@
-import Router from "next/router";
+import { useRouter } from "next/router";
 import { setCookie } from "nookies";
 import {
   createContext,
   Dispatch,
   ReactNode,
   SetStateAction,
+  useContext,
   useState,
 } from "react";
 import { apiApp } from "services/api";
-import { checkAdmin } from "services/Users";
 import Swal from "sweetalert2";
-
-interface SignInRequest {
-  name: string;
-  password: string;
-}
+import { AppContext } from "./AppContext";
 
 interface IAuthContext {
   isAuthenticated: boolean;
@@ -35,6 +31,9 @@ interface IAuthProvider {
 const AuthContext = createContext({} as IAuthContext);
 
 const AuthProvider = ({ children }: IAuthProvider) => {
+  const { adminActive, toggleAdminActive } = useContext(AppContext);
+
+  const router = useRouter();
   const [name, setName] = useState("");
 
   const [loading, setLoading] = useState(false);
@@ -45,30 +44,27 @@ const AuthProvider = ({ children }: IAuthProvider) => {
 
   const handleSignIn = async () => {
     setLoading(true);
-    try {
-      const { data } = await apiApp.post("/login", { name, password });
-      const admin = await checkAdmin(data);
-
-      setCookie(undefined, "token", data, {
-        maxAge: 60 * 60 * 1, // 1 hour
-      });
-
-      setCookie(undefined, "adminActive", String(admin), {
-        maxAge: 60 * 60 * 1, // 1 hour
-      });
-
-      Router.push("/users/home");
-    } catch (err) {
+    const { data } = await apiApp.post("/login", { name, password });
+    if (data.message === "User/Password incorrect!") {
       Swal.fire({
         icon: "warning",
-        title: "Usuário ou senha incorreto",
-        text: "Tente novamente!",
+        title: "Usuário ou senha incorretos!",
+        text: "Tente novamente ",
       });
-    } finally {
-      setLoading(false);
-      setName("");
-      setPassword("");
     }
+    if (data.token) {
+      setCookie(undefined, "token", data.token, {
+        maxAge: 60 * 60 * 9, // 9 hour
+      });
+
+      toggleAdminActive(data.admin);
+
+      router.push("/users/home");
+    }
+
+    setName("");
+    setPassword("");
+    setLoading(false);
   };
 
   return (
