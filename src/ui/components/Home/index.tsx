@@ -1,13 +1,12 @@
 import { ErrorPage } from "@components/ErrorPage/ErrorPage";
 import { Layout } from "@components/Layout";
 import { AppContext } from "contexts/AppContext";
-import { GetServerSideProps } from "next";
-import { parseCookies } from "nookies";
+import { IHome } from "data/types/IApp";
 import { useContext } from "react";
 import { HomeAdmin } from "./HomeAdmin/HomeAdmin";
 import { HomeUser } from "./HomeUser/HomeUser";
 
-const Home = (token: string) => {
+const Home = ({ token }: IHome) => {
   const { adminActive } = useContext(AppContext);
 
   if (!token) {
@@ -15,16 +14,6 @@ const Home = (token: string) => {
   }
 
   return <Layout>{adminActive ? <HomeAdmin /> : <HomeUser />}</Layout>;
-};
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { token } = parseCookies(ctx);
-
-  return {
-    props: {
-      token,
-    },
-  };
 };
 
 export { Home };

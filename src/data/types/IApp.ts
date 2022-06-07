@@ -192,3 +192,7 @@ export interface IAppCard {
   hrefList: string;
   hrefUpdate: string;
 }
+
+export interface IHome {
+  token: string;
+}

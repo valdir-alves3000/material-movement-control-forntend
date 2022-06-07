@@ -12,7 +12,8 @@ import { useContext } from "react";
 
 const Header = () => {
   const router = useRouter();
-  const { dark, handleSetDark, toggleToken, token } = useContext(AppContext);
+  const { dark, handleSetDark } = useContext(AppContext);
+  const token = Cookies.get("token");
 
   return (
     <Box>
@@ -29,7 +30,6 @@ const Header = () => {
           </IconButton>
           <IconButton
             onClick={() => {
-              toggleToken("");
               Cookies.remove("token");
               router.push("/");
             }}
