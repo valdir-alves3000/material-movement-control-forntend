@@ -62,15 +62,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     return res.json({ message });
   } else {
     return res.json({
-      expirationDate,
-      expirationDateIsOpen,
-      openProduct,
-      phone,
-      closeToExpiration,
-      product,
-      Method: req.method,
-      NEXT_PUBLIC_TWILIO_ID,
-      NEXT_PUBLIC_TWILIO_AUTHTOKEN,
+      message: `The HTTP ${req.method} method is not supported at this route.`,
     });
   }
 };

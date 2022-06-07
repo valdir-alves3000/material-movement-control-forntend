@@ -48,7 +48,7 @@ const ExpirationDate = ({
     setLoading(true);
 
     try {
-      await apiTwilio.post("/message", data);
+      await apiTwilio.post("/twilio/message", data);
     } catch (error) {
     } finally {
       setLoading(false);
@@ -56,7 +56,7 @@ const ExpirationDate = ({
   };
 
   const alertToExpiration = async (phone: number, product: string) => {
-    await apiTwilio.post("/message", {
+    await apiTwilio.post("/twilio/message", {
       closeToExpiration: true,
       phone,
       product,
