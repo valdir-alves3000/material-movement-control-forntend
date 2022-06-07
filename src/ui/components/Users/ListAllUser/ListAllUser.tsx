@@ -10,11 +10,10 @@ import {
 import { AppContext } from "contexts/AppContext";
 import { IUserResponse } from "data/types/IApp";
 import { useContext } from "react";
-import { deleteUser } from "services/Users";
 import { ListAllUserContainer } from "./ListAllUser.style";
 
 const ListAllUser = ({ users }: IUserResponse) => {
-  const { formatDate, token } = useContext(AppContext);
+  const { formatDate } = useContext(AppContext);
 
   return (
     <ListAllUserContainer>
@@ -44,11 +43,7 @@ const ListAllUser = ({ users }: IUserResponse) => {
               <AppTableTd>{formatDate(user.created_at!)}</AppTableTd>
               <AppTableTd>{formatDate(user.updated_at!)}</AppTableTd>
               <AppTableTd>
-                <IconButton
-                  onClick={async () => {
-                    await deleteUser(token, user.id);
-                  }}
-                >
+                <IconButton onClick={async () => {}}>
                   <RemoveCircleOutlineOutlinedIcon color="error" />
                 </IconButton>
               </AppTableTd>

@@ -6,8 +6,8 @@ import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
-      <AppProvider>
+    <AppProvider>
+      <AuthProvider>
         <Head>
           <meta
             name="viewport"
@@ -20,8 +20,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           />
         </Head>
         <Component {...pageProps} />
-      </AppProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </AppProvider>
   );
 }
 

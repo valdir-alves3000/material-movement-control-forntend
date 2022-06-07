@@ -15,12 +15,10 @@ export interface ILayout {
 
 export interface IAppContext {
   dark: boolean;
-  token: string;
   adminActive: boolean;
 
   handleSetDark: () => void;
   toggleAdminActive: (admin: boolean) => void;
-  toggleToken: (token: string) => void;
   formatDate: (date: string) => string;
 }
 
@@ -42,6 +40,27 @@ export interface ICreateUserContext {
 }
 
 export interface ICreateUserProvider {
+  children: ReactNode;
+}
+
+export interface ICreateProductContext {
+  loading: boolean;
+  disabled: boolean;
+  material: string;
+  description: string;
+  quantity: string;
+  expiration_date: string;
+  expiry_date_after_opening: string;
+
+  setMaterial: Dispatch<SetStateAction<string>>;
+  setDescription: Dispatch<SetStateAction<string>>;
+  setQuantity: Dispatch<SetStateAction<string>>;
+  setExpirationDate: Dispatch<SetStateAction<string>>;
+  setExpiryDateAfterOpening: Dispatch<SetStateAction<string>>;
+  handleCreateProduct: () => void;
+}
+
+export interface ICreateProductProvider {
   children: ReactNode;
 }
 

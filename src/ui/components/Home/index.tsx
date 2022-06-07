@@ -1,13 +1,14 @@
 import { ErrorPage } from "@components/ErrorPage/ErrorPage";
 import { Layout } from "@components/Layout";
-import Cookies from "js-cookie";
+import { AppContext } from "contexts/AppContext";
 import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
+import { useContext } from "react";
 import { HomeAdmin } from "./HomeAdmin/HomeAdmin";
 import { HomeUser } from "./HomeUser/HomeUser";
 
-const Home = () => {
-  const adminActive = Cookies.get("adminActive");
-  const token = Cookies.get("token");
+const Home = (token: string) => {
+  const { adminActive } = useContext(AppContext);
 
   if (!token) {
     return <ErrorPage />;
@@ -17,7 +18,7 @@ const Home = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { token } = ctx.req.cookies;
+  const { token } = parseCookies(ctx);
 
   return {
     props: {

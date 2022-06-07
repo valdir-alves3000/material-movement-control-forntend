@@ -32,6 +32,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.json(user);
   } else {
-    return res.json({ message: "Method invalid" });
+    return res.json({
+      message: `The HTTP ${req.method} method is not supported at this route.`,
+    });
   }
 };

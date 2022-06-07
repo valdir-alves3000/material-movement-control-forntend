@@ -5,39 +5,25 @@ import {
   SignInGrid,
 } from "@components/Users/SignIn/SignIn.style";
 import { TextField } from "@mui/material";
-import Cookies from "js-cookie";
-import React, { useState } from "react";
-import { createProduct } from "services/Products";
+import { CreateProductContext } from "contexts/CreateProductContext";
+import { useContext } from "react";
 
-const CreateProduct: React.FC = () => {
-  const [loading, setLoading] = useState(false);
-  const [material, setMaterial] = useState("");
-  const [description, setDescription] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [expirationDate, setExpirationDate] = useState("");
-  const [expiryDateAfterOpening, setExpiryDateAfterOpening] = useState("");
-
-  const disabled =
-    material.length < 4 ||
-    description.length < 4 ||
-    quantity.length < 1 ||
-    expirationDate.length < 10 ||
-    expiryDateAfterOpening.length < 1;
-
-  const handleCreateProduct = async () => {
-    const token = Cookies.get("token") as string;
-    setLoading(true);
-    await createProduct({
-      description,
-      expiration_date: expirationDate,
-      expiry_date_after_opening: Number(expiryDateAfterOpening),
-      material,
-      quantity: Number(quantity),
-      token,
-    });
-
-    setLoading(false);
-  };
+const CreateProduct = () => {
+  const {
+    material,
+    setMaterial,
+    description,
+    setDescription,
+    quantity,
+    setQuantity,
+    expiration_date,
+    expiry_date_after_opening,
+    setExpirationDate,
+    setExpiryDateAfterOpening,
+    loading,
+    disabled,
+    handleCreateProduct,
+  } = useContext(CreateProductContext);
 
   return (
     <SignInContainer container>
@@ -71,17 +57,17 @@ const CreateProduct: React.FC = () => {
 
         <TextField
           fullWidth
-          placeholder="01/01/1960"
+          placeholder="AAAA/MM/DD"
           label={"Data de Validade"}
           required
-          value={expirationDate}
+          value={expiration_date}
           onChange={(e) => setExpirationDate(e.target.value)}
         />
         <TextField
           fullWidth
           label={"Validade após aberto"}
           required
-          value={expiryDateAfterOpening}
+          value={expiry_date_after_opening}
           onChange={(e) => setExpiryDateAfterOpening(e.target.value)}
         />
 

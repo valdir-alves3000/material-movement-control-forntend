@@ -1,45 +1,51 @@
 import { ICreateUserContext, ICreateUserProvider } from "data/types/IApp";
 import { useRouter } from "next/router";
-import { createContext, useContext, useState } from "react";
-import { createUser } from "services/Users";
+import { createContext, useState } from "react";
+import { apiApp } from "services/api";
 import Swal from "sweetalert2";
-import { AppContext } from "./AppContext";
 
 const CreateUserContext = createContext({} as ICreateUserContext);
 
 const CreateUserProvider = ({ children }: ICreateUserProvider) => {
   const router = useRouter();
-  const { token } = useContext(AppContext);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [admin, setAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const disabled = name.length < 4 || password.length < 5 || loading;
+  const disabled = name.length < 4 || password.length < 5;
 
   const handleCreateUser = async () => {
     setLoading(true);
 
-    const user = await createUser({ name, password, admin, token });
-    if (user === "error") {
-      Swal.fire({
-        icon: "error",
-        title: "Erro no cadastro!",
-        text: "Tente novamente!",
+    try {
+      const { data } = await apiApp.post("/users/create", {
+        name,
+        password,
+        admin,
       });
-    } else {
+
+      if (data === "User already exists!") {
+        return Swal.fire({
+          icon: "error",
+          title: "Usuário já cadastrado",
+          text: "Tente o cadastro com outro nome",
+        });
+      }
+
       Swal.fire({
         icon: "success",
-        title: "Usuário cadastrado",
-        text: "Usuário já pode acessar o sistema",
+        title: "Usuário cadastro com sucesso",
+        text: "Usuário está liberado para acessar o sistema",
       });
 
       router.back();
+    } catch (error) {
+    } finally {
+      setLoading(false);
+      setName("");
+      setPassword("");
     }
-
-    setLoading(false);
-    setName("");
-    setPassword("");
   };
 
   const toggleAdmin = () => {
