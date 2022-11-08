@@ -29,7 +29,7 @@ const CreateProductProvider = ({ children }: ICreateProductProvider) => {
       expiration_date: new Date(expiration_date),
       expiry_date_after_opening,
       quantity,
-      created_by_user: "6da73f8f-0659-4f75-9cfc-7ba32f498797",
+      created_by_user: "9fe5caf1-8dfb-4b41-86bf-63a9b976b0ad",
     };
 
     setLoading(true);
